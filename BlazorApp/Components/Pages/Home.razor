@@ -1,7 +1,15 @@
 ﻿@page "/"
+@using System.Globalization
 
 <PageTitle>Home</PageTitle>
 
 <h1>Hello, world!</h1>
 
 Welcome to your new app.
+
+<h1>Culture Client</h1>
+
+<ul>
+    <li><b>CurrentCulture</b>: @CultureInfo.CurrentCulture</li>
+    <li><b>CurrentUICulture</b>: @CultureInfo.CurrentUICulture</li>
+</ul>
