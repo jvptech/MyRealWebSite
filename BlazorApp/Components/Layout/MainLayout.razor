@@ -34,7 +34,7 @@
 @code {
     public bool ShowModalDialog { get; set; }
 
-    private void OnCloseDialog(bool result)
+    private void OnCloseDialog()
     {
         ShowModalDialog = false;
         StateHasChanged();
