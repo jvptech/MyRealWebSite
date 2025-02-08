@@ -34,13 +34,13 @@
 @code {
     public bool ShowModalDialog { get; set; }
 
-    private void OnCloseDialog()
+    internal void OnCloseDialog()
     {
         ShowModalDialog = false;
         StateHasChanged();
     }
 
-    private void OnOpenDialog()
+    internal void OnOpenDialog()
     {
         ShowModalDialog = true;
         StateHasChanged();
