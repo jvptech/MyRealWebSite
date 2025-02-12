@@ -1,4 +1,6 @@
-﻿@inherits LayoutComponentBase
+﻿@using System.Globalization
+@inject IJSRuntime JS
+@inherits LayoutComponentBase
 
 <div class="page">
     <div class="sidebar">
@@ -6,13 +8,12 @@
     </div>
 
     <main>
-        <div class="top-row px-4">
+        <div class="align-middle top-row px-4">
+            <button class="btn btn-primary" @onclick="@OnOpenDialog">
+                @CultureInfo.CurrentCulture.DisplayName
+             </button>
             <a href="https://learn.microsoft.com/aspnet/core/" target="_blank">About</a>
         </div>
-        <srticle class="bottom-row px-4">
-            <CultureSelector @rendermode="InteractiveServer" />
-        </srticle>
-
         <article class="content px-4">
             @Body
         </article>
@@ -24,3 +25,24 @@
     <a href="." class="reload">Reload</a>
     <span class="dismiss">🗙</span>
 </div>
+
+@if (ShowModalDialog)
+{
+    <ModalDialog OnClose="@OnCloseDialog"></ModalDialog>
+}
+
+@code {
+    public bool ShowModalDialog { get; set; }
+
+    internal void OnCloseDialog()
+    {
+        ShowModalDialog = false;
+        StateHasChanged();
+    }
+
+    internal void OnOpenDialog()
+    {
+        ShowModalDialog = true;
+        StateHasChanged();
+    }
+}
