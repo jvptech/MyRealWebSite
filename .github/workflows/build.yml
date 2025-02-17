@@ -44,4 +44,17 @@ jobs:
         run: |
           .\.sonar\scanner\dotnet-sonarscanner begin /k:"jvptech_MyRealWebSite" /o:"jvptech" /d:sonar.token="${{ secrets.SONAR_TOKEN }}" /d:sonar.host.url="https://sonarcloud.io"
           dotnet build
+      - name: Run unit tests with xUnit
+        run: |
+          dotnet test --logger trx --results-directory TestResults
+      - name: Publish test results
+        uses: actions/upload-artifact@v4
+        with:
+          name: TestResults
+          path: TestResults
+      - name: Finalize SonarQube Analysis
+        env:
+          SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
+        shell: powershell
+        run: |
           .\.sonar\scanner\dotnet-sonarscanner end /d:sonar.token="${{ secrets.SONAR_TOKEN }}"
